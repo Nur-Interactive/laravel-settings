@@ -28,7 +28,7 @@ class SettingEloquentStorage implements SettingStorage
     public function all($fresh = false)
     {
         // if ($fresh) { //cache commented out for now
-        return $this->modelQuery()->pluck('val', 'name', 'secret');
+        return $this->modelQuery()->select('val', 'name', 'secret');
         // }
 
         //cache commented out for now
@@ -42,11 +42,7 @@ class SettingEloquentStorage implements SettingStorage
      */
     public function get($key, $default = null, $fresh = false)
     {
-        $value = $this->all($fresh)->get($key, $default);
-        $secret = $this->all($fresh)->get('secret', false);
-        if ($secret) {
-            $value = decrypt($value);
-        }
+        $value = $this->all($fresh)->where('name', $key)->pluck('val')->first();
         return $value;
     }
 

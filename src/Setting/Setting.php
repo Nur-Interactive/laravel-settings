@@ -10,8 +10,20 @@ class Setting extends Model
 
     protected $table = 'settings';
 
+    protected $casts = [
+        'secret' => 'boolean',
+    ];
+
     public function scopeGroup($query, $groupName)
     {
         return $query->whereGroup($groupName);
+    }
+
+    public function getValAttribute($value)
+    {
+        if ($this->secret) {
+            return decrypt($value);
+        }
+        return $value;
     }
 }
