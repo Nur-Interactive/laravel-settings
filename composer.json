@@ -1,7 +1,7 @@
 {
   "name": "nurinteractive/laravel-settings",
   "description": "Store key value pair in database as settings",
-  "homepage": "https://github.com/nurinteractive/laravel-settings",
+  "homepage": "https://github.com/Nur-Interactive/laravel-settings",
   "type": "library",
   "license": "MIT",
   "keywords": [
@@ -13,8 +13,8 @@
   ],
   "authors": [
     {
-      "name": "Mohd Saqueib Ansari",
-      "email": "saquibweb@gmail.com"
+      "name": "Belal Hamdan",
+      "email": "belal@nurinteractive.com"
     }
   ],
   "require": {

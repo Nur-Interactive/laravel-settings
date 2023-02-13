@@ -1,24 +1,30 @@
 ## Laravel Settings
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/nurinteractive/laravel-settings.svg)](https://packagist.org/packages/nurinteractive/laravel-settings)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/nurinteractive/laravel-settings/master.svg)](https://travis-ci.org/nurinteractive/laravel-settings)
-[![StyleCI](https://styleci.io/repos/152258044/shield)](https://styleci.io/repos/152258044)
-[![Total Downloads](https://img.shields.io/packagist/dt/nurinteractive/laravel-settings.svg)](https://packagist.org/packages/nurinteractive/laravel-settings)
-
 Use `nurinteractive/laravel-settings` to store key value pair settings in the database.
 
 > All the settings saved in db is cached to improve performance by reducing sql query to zero.
 
 ### Installation
 
-**1** - You can install the package via composer:
+**1** - Add this repository to your composer.json
+
+```bash
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Nur-Interactive/laravel-settings"
+        }
+    ],
+```
+
+
+**2** - You can install the package via composer:
 
 ```bash
 $ composer require nurinteractive/laravel-settings
 ```
 
-**2** - If you are installing on Laravel 5.4 or lower you will be needed to manually register Service Provider by adding it in `config/app.php` providers array and Facade in aliases arrays.
+**3** - If you are installing on Laravel 5.4 or lower you will be needed to manually register Service Provider by adding it in `config/app.php` providers array and Facade in aliases arrays.
 
 ```php
 'providers' => [
@@ -34,7 +40,7 @@ $ composer require nurinteractive/laravel-settings
 
 In Laravel 5.5 or above the service provider automatically get registered and a facade `Setting::get('app_name')` will be available.
 
-**3** - Now run the migration by `php artisan migrate` to create the settings table.
+**4** - Now run the migration by `php artisan migrate` to create the settings table.
 
 Publish the assets file by running:
 
@@ -56,11 +62,11 @@ settings()->all($fresh = false);
 settings()->get($key, $default = null);
 
 // Set a single setting
-settings()->set($key, $value);
+settings()->set($key, $value, $secret=false);
 
 // Set a multiple settings
 settings()->set([
-   'app_name' => 'Nurinteractivee',
+   'app_name' => 'Nurinteractive',
    'app_email' => 'info@email.com',
    'app_type' => 'SaaS'
 ]);
@@ -81,11 +87,11 @@ From `v 1.0.6` You can organize your settings into groups. If you skip the group
 You have all above methods available just set you working group by calling `->group('group_name')` method and chain on:
 
 ```php
-settings()->group('team.1')->set('app_name', 'My Team App');
+settings()->group('team.1')->set('app_name', 'My Team App', true);
 settings()->group('team.1')->get('app_name');
 > My Team App
 
-settings()->group('team.2')->set('app_name', 'My Team 2 App');
+settings()->group('team.2')->set('app_name', 'My Team 2 App' , true);
 settings()->group('team.2')->get('app_name');
 > My Team 2 App
 
@@ -94,10 +100,6 @@ settings()->group('team.2')->get('app_name');
 > My Team App
 ```
 
-### Changelog
-
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
-
 ### Testing
 
 The package contains some integration/smoke tests, set up with Orchestra. The tests can be run via phpunit.
@@ -105,23 +107,3 @@ The package contains some integration/smoke tests, set up with Orchestra. The te
 ```bash
 $ composer test
 ```
-
-### Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
-
-### Security
-
-If you discover any security related issues, please email saquibweb@gmail.com instead of using the issue tracker.
-
-### Credits
-
-- [Mohd Saqueib Ansari](https://github.com/saqueib)
-
-### About Nurinteractivee.in
-
-Nurinteractivee.in (https://www.nurinteractivee.in) is blog by [Saqueib](https://github.com/saqueib) which covers All about Full Stack Web Development.
-
-### License
-
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
