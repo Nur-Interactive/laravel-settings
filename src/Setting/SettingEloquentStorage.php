@@ -69,7 +69,7 @@ class SettingEloquentStorage implements SettingStorage
             'group' => $this->settingsGroupName,
         ]);
 
-        $setting->val = $val;
+        $setting->val = $secret ? encrypt($val) : $val;
         $setting->group = $this->settingsGroupName;
         $setting->secret = $secret;
         $setting->save();
