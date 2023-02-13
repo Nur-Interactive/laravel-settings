@@ -53,7 +53,7 @@ class SettingEloquentStorage implements SettingStorage
     /**
      * {@inheritdoc}
      */
-    public function set($key, $val = null, $secret = false)
+    public function set($key, $val = null, bool $secret = false)
     {
         // if its an array, batch save settings
         if (is_array($key)) {
@@ -68,7 +68,6 @@ class SettingEloquentStorage implements SettingStorage
             'name' => $key,
             'group' => $this->settingsGroupName,
         ]);
-
         $setting->val = $secret ? encrypt($val) : $val;
         $setting->group = $this->settingsGroupName;
         $setting->secret = $secret;
