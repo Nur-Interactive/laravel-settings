@@ -1,6 +1,6 @@
 <?php
 
-namespace QCod\Settings;
+namespace Nurinteractive\Settings;
 
 class Facade extends \Illuminate\Support\Facades\Facade
 {
@@ -9,6 +9,6 @@ class Facade extends \Illuminate\Support\Facades\Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'QCod\Settings\Setting\SettingStorage';
+        return 'Nurinteractive\Settings\Setting\SettingStorage';
     }
 }

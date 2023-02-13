@@ -1,6 +1,6 @@
 <?php
 
-namespace QCod\Settings\Tests;
+namespace Nurinteractive\Settings\Tests;
 
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
@@ -25,7 +25,7 @@ abstract class TestCase extends OrchestraTestCase
      */
     protected function getPackageProviders($app)
     {
-        return ['QCod\Settings\SettingsServiceProvider'];
+        return ['Nurinteractive\Settings\SettingsServiceProvider'];
     }
 
     /**
@@ -35,7 +35,7 @@ abstract class TestCase extends OrchestraTestCase
     protected function getPackageAliases($app)
     {
         return [
-            'Settings' => 'QCod\Settings\Facade'
+            'Settings' => 'Nurinteractive\Settings\Facade'
         ];
     }
 
@@ -45,15 +45,16 @@ abstract class TestCase extends OrchestraTestCase
      */
     protected function configureInputs($inputs): void
     {
-        config(['app_settings.sections' => [
-            'app' => [
-                'title' => 'General Settings',
-                'descriptions' => 'Application general settings.',
-                'icon' => 'fa fa-cog',
+        config([
+            'app_settings.sections' => [
+                'app' => [
+                    'title' => 'General Settings',
+                    'descriptions' => 'Application general settings.',
+                    'icon' => 'fa fa-cog',
 
-                'inputs' => $inputs
+                    'inputs' => $inputs
+                ]
             ]
-        ]
         ]);
     }
 }

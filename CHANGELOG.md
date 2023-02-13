@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to `qcod/laravel-settings` will be documented in this file
+All notable changes to `nurinteractive/laravel-settings` will be documented in this file
 
 ## 1.0.9 - 2020-09-24
 - Laravel 8 support

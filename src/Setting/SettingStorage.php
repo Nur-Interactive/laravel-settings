@@ -1,6 +1,6 @@
 <?php
 
-namespace QCod\Settings\Setting;
+namespace Nurinteractive\Settings\Setting;
 
 use Illuminate\Support\Collection;
 

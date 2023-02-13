@@ -1,6 +1,6 @@
 <?php
 
-namespace QCod\Settings\Setting;
+namespace Nurinteractive\Settings\Setting;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Cache;
@@ -27,11 +27,11 @@ class SettingEloquentStorage implements SettingStorage
     public function all($fresh = false)
     {
         if ($fresh) {
-            return $this->modelQuery()->pluck('val', 'name');
+            return $this->modelQuery()->pluck('val', 'name', 'secret');
         }
 
         return Cache::rememberForever($this->getSettingsCacheKey(), function () {
-            return $this->modelQuery()->pluck('val', 'name');
+            return $this->modelQuery()->pluck('val', 'name', 'secret');
         });
     }
 
@@ -46,7 +46,7 @@ class SettingEloquentStorage implements SettingStorage
     /**
      * {@inheritdoc}
      */
-    public function set($key, $val = null)
+    public function set($key, $val = null, $secret = false)
     {
         // if its an array, batch save settings
         if (is_array($key)) {
@@ -64,6 +64,7 @@ class SettingEloquentStorage implements SettingStorage
 
         $setting->val = $val;
         $setting->group = $this->settingsGroupName;
+        $setting->secret = $secret;
         $setting->save();
 
         $this->flushCache();
@@ -106,7 +107,7 @@ class SettingEloquentStorage implements SettingStorage
      */
     protected function getSettingsCacheKey()
     {
-        return $this->settingsCacheKey.'.'.$this->settingsGroupName;
+        return $this->settingsCacheKey . '.' . $this->settingsGroupName;
     }
 
     /**
@@ -116,7 +117,8 @@ class SettingEloquentStorage implements SettingStorage
      */
     protected function getSettingModel()
     {
-        return app('\QCod\Settings\Setting\Setting');
+        $model = config('settings.model');
+        return app($model);
     }
 
     /**

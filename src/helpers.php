@@ -1,6 +1,6 @@
 <?php
 
-if (! function_exists('settings')) {
+if (!function_exists('settings')) {
 
     /**
      * Get app setting stored in db.
@@ -11,7 +11,7 @@ if (! function_exists('settings')) {
      */
     function settings($key = null, $default = null)
     {
-        $setting = app()->make('QCod\Settings\Setting\SettingStorage');
+        $setting = app()->make('Nurinteractive\Settings\Setting\SettingStorage');
 
         if (is_null($key)) {
             return $setting;

@@ -1,10 +1,10 @@
 <?php
 
-namespace QCod\Settings\Tests\Feature;
+namespace Nurinteractive\Settings\Tests\Feature;
 
-use QCod\Settings\Tests\TestCase;
-use QCod\Settings\Setting\Setting;
-use QCod\Settings\Setting\SettingEloquentStorage;
+use Nurinteractive\Settings\Tests\TestCase;
+use Nurinteractive\Settings\Setting\Setting;
+use Nurinteractive\Settings\Setting\SettingEloquentStorage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class StorageTest extends TestCase
@@ -30,11 +30,11 @@ class StorageTest extends TestCase
      */
     public function it_sets_a_new_key_value_in_store()
     {
-        $this->assertDatabaseMissing('settings', ['app_name' => 'QCode']);
+        $this->assertDatabaseMissing('settings', ['app_name' => 'Nurinteractivee']);
 
-        $this->settingStorage->set('app_name', 'QCode');
+        $this->settingStorage->set('app_name', 'Nurinteractivee');
 
-        $this->assertDatabaseHas('settings', ['name' => 'app_name', 'val' => 'QCode']);
+        $this->assertDatabaseHas('settings', ['name' => 'app_name', 'val' => 'Nurinteractivee']);
     }
 
     /**
@@ -44,15 +44,15 @@ class StorageTest extends TestCase
      */
     public function it_dont_set_if_same_key_value_pair_exists_in_store()
     {
-        $this->assertDatabaseMissing('settings', ['app_name' => 'QCode']);
+        $this->assertDatabaseMissing('settings', ['app_name' => 'Nurinteractivee']);
 
-        $this->settingStorage->set('app_name', 'QCode');
-        $this->settingStorage->set('app_name', 'QCode');
+        $this->settingStorage->set('app_name', 'Nurinteractivee');
+        $this->settingStorage->set('app_name', 'Nurinteractivee');
 
-        $this->assertDatabaseHas('settings', ['name' => 'app_name', 'val' => 'QCode']);
+        $this->assertDatabaseHas('settings', ['name' => 'app_name', 'val' => 'Nurinteractivee']);
         $this->assertCount(1, $this->settingStorage->all(true));
 
-        $this->settingStorage->set('email_name', 'QCode');
+        $this->settingStorage->set('email_name', 'Nurinteractivee');
         $this->assertCount(2, $this->settingStorage->all(true));
     }
 
@@ -63,13 +63,13 @@ class StorageTest extends TestCase
      */
     public function it_updates_exisiting_setting_if_already_exists()
     {
-        $this->settingStorage->set('app_name', 'QCode');
-        $this->assertDatabaseHas('settings', ['name' => 'app_name', 'val' => 'QCode']);
+        $this->settingStorage->set('app_name', 'Nurinteractivee');
+        $this->assertDatabaseHas('settings', ['name' => 'app_name', 'val' => 'Nurinteractivee']);
 
-        $this->settingStorage->set('app_name', 'Updated QCode');
+        $this->settingStorage->set('app_name', 'Updated Nurinteractivee');
 
-        $this->assertDatabaseHas('settings', ['name' => 'app_name', 'val' => 'Updated QCode']);
-        $this->assertEquals('Updated QCode', $this->settingStorage->get('app_name'));
+        $this->assertDatabaseHas('settings', ['name' => 'app_name', 'val' => 'Updated Nurinteractivee']);
+        $this->assertEquals('Updated Nurinteractivee', $this->settingStorage->get('app_name'));
     }
 
     /**
@@ -79,13 +79,13 @@ class StorageTest extends TestCase
      */
     public function it_removes_a_setting_from_storage()
     {
-        $this->settingStorage->set('app_name', 'QCode');
-        $this->assertDatabaseHas('settings', ['name' => 'app_name', 'val' => 'QCode']);
-        $this->assertEquals('QCode', $this->settingStorage->get('app_name'));
+        $this->settingStorage->set('app_name', 'Nurinteractivee');
+        $this->assertDatabaseHas('settings', ['name' => 'app_name', 'val' => 'Nurinteractivee']);
+        $this->assertEquals('Nurinteractivee', $this->settingStorage->get('app_name'));
 
         $this->settingStorage->remove('app_name');
 
-        $this->assertDatabaseMissing('settings', ['name' => 'app_name', 'val' => 'QCode']);
+        $this->assertDatabaseMissing('settings', ['name' => 'app_name', 'val' => 'Nurinteractivee']);
         $this->assertNull($this->settingStorage->get('app_name'));
     }
 
@@ -96,7 +96,7 @@ class StorageTest extends TestCase
      */
     public function it_gives_default_value_if_nothing_setting_not_found()
     {
-        $this->assertDatabaseMissing('settings', ['app_name' => 'QCode']);
+        $this->assertDatabaseMissing('settings', ['app_name' => 'Nurinteractivee']);
 
         $this->assertEquals(
             'Default App Name',
@@ -111,18 +111,18 @@ class StorageTest extends TestCase
      */
     public function it_gives_you_saved_setting_value()
     {
-        $this->settingStorage->set('app_name', 'QCode');
+        $this->settingStorage->set('app_name', 'Nurinteractivee');
 
         $this->assertEquals(
-            'QCode',
+            'Nurinteractivee',
             $this->settingStorage->get('app_name', 'Default App Name')
         );
 
         // change the setting
-        $this->settingStorage->set('app_name', 'Changed QCode');
+        $this->settingStorage->set('app_name', 'Changed Nurinteractivee');
 
         $this->assertEquals(
-            'Changed QCode',
+            'Changed Nurinteractivee',
             $this->settingStorage->get('app_name', 'Default App Name')
         );
     }
@@ -135,13 +135,13 @@ class StorageTest extends TestCase
     public function it_can_add_multiple_settings_in_if_multi_array_is_passed()
     {
         $this->settingStorage->set([
-            'app_name' => 'QCode',
+            'app_name' => 'Nurinteractivee',
             'app_email' => 'info@email.com',
             'app_type' => 'SaaS'
         ]);
 
         $this->assertCount(3, $this->settingStorage->all());
-        $this->assertEquals('QCode', $this->settingStorage->get('app_name'));
+        $this->assertEquals('Nurinteractivee', $this->settingStorage->get('app_name'));
         $this->assertEquals('info@email.com', $this->settingStorage->get('app_email'));
         $this->assertEquals('SaaS', $this->settingStorage->get('app_type'));
     }

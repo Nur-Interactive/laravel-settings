@@ -1,11 +1,11 @@
 {
-  "name": "qcod/laravel-settings",
+  "name": "nurinteractive/laravel-settings",
   "description": "Store key value pair in database as settings",
-  "homepage": "https://github.com/qcod/laravel-settings",
+  "homepage": "https://github.com/nurinteractive/laravel-settings",
   "type": "library",
   "license": "MIT",
   "keywords": [
-    "qcod",
+    "nurinteractive",
     "laravel",
     "database settings",
     "db settings",
@@ -31,7 +31,7 @@
       "src/migrations"
     ],
     "psr-4": {
-      "QCod\\Settings\\": "src/"
+      "Nurinteractive\\Settings\\": "src/"
     },
     "files": [
       "src/helpers.php"
@@ -39,16 +39,16 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "QCod\\Settings\\Tests\\": "tests/"
+      "Nurinteractive\\Settings\\Tests\\": "tests/"
     }
   },
   "extra": {
     "laravel": {
       "providers": [
-        "QCod\\Settings\\SettingsServiceProvider"
+        "Nurinteractive\\Settings\\SettingsServiceProvider"
       ],
       "aliases": {
-        "Settings": "QCod\\Settings\\Facade"
+        "Settings": "Nurinteractive\\Settings\\Facade"
       }
     }
   },
