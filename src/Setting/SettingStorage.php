@@ -54,7 +54,7 @@ interface SettingStorage
      *
      * @return bool
      */
-    public function flushCache();
+    // public function flushCache(); //cache commented out for now
 
     /**
      * Set the group name for settings.

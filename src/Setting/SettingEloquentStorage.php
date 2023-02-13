@@ -3,7 +3,6 @@
 namespace Nurinteractive\Settings\Setting;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Cache;
 
 class SettingEloquentStorage implements SettingStorage
 {
@@ -11,6 +10,7 @@ class SettingEloquentStorage implements SettingStorage
      * Group name.
      *
      * @var string
+     *
      */
     protected $settingsGroupName = 'default';
 
@@ -43,7 +43,10 @@ class SettingEloquentStorage implements SettingStorage
     public function get($key, $default = null, $fresh = false)
     {
         $value = $this->all($fresh)->get($key, $default);
-        $value = decrypt($value);
+        $secret = $this->all($fresh)->get('secret', false);
+        if ($secret) {
+            $value = decrypt($value);
+        }
         return $value;
     }
 
@@ -71,7 +74,7 @@ class SettingEloquentStorage implements SettingStorage
         $setting->secret = $secret;
         $setting->save();
 
-        $this->flushCache();
+        // $this->flushCache();//cache commented out for now
 
         return $val;
     }
@@ -91,7 +94,7 @@ class SettingEloquentStorage implements SettingStorage
     {
         $deleted = $this->getSettingModel()->where('name', $key)->delete();
 
-        $this->flushCache();
+        // $this->flushCache(); //cache commented out for now
 
         return $deleted;
     }
@@ -99,10 +102,10 @@ class SettingEloquentStorage implements SettingStorage
     /**
      * {@inheritdoc}
      */
-    public function flushCache()
-    {
-        return Cache::forget($this->getSettingsCacheKey());
-    }
+    // public function flushCache()
+    // {
+    //     return Cache::forget($this->getSettingsCacheKey()); //cache commented out for now
+    // }
 
     /**
      * Get settings cache key.
