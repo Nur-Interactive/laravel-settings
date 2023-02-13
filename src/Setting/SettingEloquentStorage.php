@@ -19,20 +19,22 @@ class SettingEloquentStorage implements SettingStorage
      *
      * @var string
      */
-    protected $settingsCacheKey = 'app_settings';
+    // protected $settingsCacheKey = 'app_settings';  //cache commented out for now
+
 
     /**
      * {@inheritdoc}
      */
     public function all($fresh = false)
     {
-        if ($fresh) {
-            return $this->modelQuery()->pluck('val', 'name', 'secret');
-        }
+        // if ($fresh) { //cache commented out for now
+        return $this->modelQuery()->pluck('val', 'name', 'secret');
+        // }
 
-        return Cache::rememberForever($this->getSettingsCacheKey(), function () {
-            return $this->modelQuery()->pluck('val', 'name', 'secret');
-        });
+        //cache commented out for now
+        // return Cache::rememberForever($this->getSettingsCacheKey(), function () {
+        //     return $this->modelQuery()->pluck('val', 'name', 'secret');
+        // });
     }
 
     /**
@@ -40,7 +42,9 @@ class SettingEloquentStorage implements SettingStorage
      */
     public function get($key, $default = null, $fresh = false)
     {
-        return $this->all($fresh)->get($key, $default);
+        $value = $this->all($fresh)->get($key, $default);
+        $value = decrypt($value);
+        return $value;
     }
 
     /**
@@ -105,10 +109,10 @@ class SettingEloquentStorage implements SettingStorage
      *
      * @return string
      */
-    protected function getSettingsCacheKey()
-    {
-        return $this->settingsCacheKey . '.' . $this->settingsGroupName;
-    }
+    // protected function getSettingsCacheKey() //cache commented out for now
+    // {
+    //     return $this->settingsCacheKey . '.' . $this->settingsGroupName;
+    // }
 
     /**
      * Get settings eloquent model.
